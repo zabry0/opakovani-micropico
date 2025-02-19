@@ -6,6 +6,8 @@ button =Pin(0,Pin.IN,Pin.PULL_UP)
 
 sensor = dht.DHT11(Pin(1))
 
+metr = 1
+
 while True:
     if button.value() == 1:
         if metr == 1:
