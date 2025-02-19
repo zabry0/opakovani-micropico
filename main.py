@@ -1,31 +1,29 @@
-import machine
+from machine import Pin
+from time import sleep
 import dht
-import time
 
-meric = machine.Pin(1)
+button =Pin(0,Pin.IN,Pin.PULL_UP)
 
-button = machine.Pin(0,machine.Pin.IN,machine.Pin.PULL_UP)
-
-sensor = dht.DHT11(meric)
+sensor = dht.DHT11(Pin(1))
 
 while True:
-    if button.value() == 0:
-        if mereni == 1:
-            mereni = 2
+    if button.value() == 1:
+        if metr == 1:
+            metr = 2
         else:
-            mereni = 1
-    
-    sensor.measure() 
-    temp = sensor.temperature()
-    hum = sensor.humidity()
-    temp_f = temp * (9/5) + 32.0
-    
-    if mereni == 1:
-        print('Temperature: %3.1f C' %temp)
-        print('Temperature: %3.1f F' %temp_f)
-               
+            metr = 1
+   
+    sensor.measure()
+    t = sensor.temperature()
+    h = sensor.humidity()
 
-
-    if mereni == 2:
-        print('Humidity: %3.1f %%' %hum)
-        time.sleep(0.5)
+    if metr == 1:
+        print("temp=" + str(t))
+    
+    if metr == 2:
+        print("humidity=" + str(h))
+    
+    sleep(5)
+    
+    for i in range(10):
+        print(" ")
